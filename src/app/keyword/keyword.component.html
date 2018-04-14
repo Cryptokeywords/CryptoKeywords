@@ -1,0 +1,102 @@
+<div class="container">
+  <div class="jumbotron">
+    <span *ngIf="!keyword.uniqueText">
+      <h1>Loading keyword. Please wait...</h1>
+    </span>
+    <h1>{{keyword.uniqueText}}</h1>
+  </div>
+
+  <p>
+    <a href="https://etherscan.io/address/{{contractService.account}}" target="_blank">View My Latest Transactions</a>
+  </p>
+
+  <form>
+
+    <p>As the owner of this keyword, you can set the content that will be associated with it.</p>
+
+    <p>After setting your content link, please wait for the transaction to be processed. You can view the status of the transaction by clicking on the link above.</p>
+
+    <p>Content must adhere to our <a href="/terms#content" target="_blank">content guidelines</a>.</p>
+    <div class="form-group">
+      <label for="url">
+        <input type="radio" name="type" id="type" value="url" [(ngModel)]="typeEdit" checked />
+        <i class="fa fa-lg fa-globe" style="color: blue;"></i> Website URL
+      </label>
+      <input type="text" class="form-control" name="urlEdit" [(ngModel)]="urlEdit" 
+      placeholder="https://your-website.com" style="width:350px;">
+    </div>
+
+    <div class="form-group">
+      <label for="youtube">
+        <input type="radio" name="type" value="youtube" [(ngModel)]="typeEdit" /> 
+        <i class="fa fa-lg fa-youtube fa-lg" style="color: red;"></i> YouTube Video ID
+      </label>
+      <input type="text" class="form-control" name="youTubeEdit" [(ngModel)]="youTubeEdit"
+      placeholder="Youtube Video ID" style="width:350px;">
+    </div>
+  
+    <div class="form-group">
+      <button
+        (click)="setMetadata()"
+        class="btn btn-primary">
+        Set Content
+      </button>
+      <button
+        (click)="setContentModal()"
+        data-toggle="modal" 
+        data-target="#contentModal"
+        class="btn btn-success">
+        Preview
+      </button>
+      <button
+        class="btn btn-danger">
+        <a href="/keywords" style="color:white">
+          Return to My Keywords
+        </a>
+      </button>
+    </div>
+
+  </form>
+</div>
+
+<div class="modal fade" id="contentModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div *ngIf="!type">
+        <div class="modal-body">
+          <div class="card">
+            <div class="card-body">
+              <h4>No content available.</h4>
+              <p>If you recently updated it, please wait.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="type == 'url'">
+        <div class="modal-body" style="width:500px;">
+          <div class="card">
+            <div class="card-header">
+                <h4><a href="{{url}}" target="_blank">{{title}}</a></h4>
+            </div>
+            <div class="card-body">
+              <p><a href="{{url}}" target="_blank">{{url}}</a><br />
+              <p>{{description}}</p>
+              <a href="{{url}}" target="_blank"><button>Visit Website</button></a>
+            </div>
+          </div>    
+        </div>
+      </div>
+        
+      <div *ngIf="type == 'youtube'">
+        <div class="modal-body">
+          <iframe id="ytplayer" type="text/html" width="560" height="315"
+          [src]="youTubeUrl"
+          frameborder="0"></iframe>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

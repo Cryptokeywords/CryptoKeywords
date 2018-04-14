@@ -1,0 +1,185 @@
+{
+  "contractName": "TokenCommon",
+  "abi": [],
+  "bytecode": "0x60606040523415600e57600080fd5b603580601b6000396000f3006060604052600080fd00a165627a7a723058202f54c9ed7b253e2281d999138797cf0fb1a5f4d35bce2d61b188437dd10f30940029",
+  "deployedBytecode": "0x6060604052600080fd00a165627a7a723058202f54c9ed7b253e2281d999138797cf0fb1a5f4d35bce2d61b188437dd10f30940029",
+  "sourceMap": "26:787:12:-;;;;;;;;;;;;;;;;;",
+  "deployedSourceMap": "26:787:12:-;;;;;",
+  "source": "pragma solidity ^0.4.17;\n\nlibrary TokenCommon {\n    /// @dev The main Token struct. Every token in CryptoTokens is represented by a copy\n    ///  of this structure, so great care was taken to ensure that it fits neatly into\n    ///  exactly two 256-bit words. Note that the order of the members in this structure\n    ///  is important because of the byte-packing rules used by Ethereum.\n    ///  Ref: http://solidity.readthedocs.io/en/develop/miscellaneous.html\n    struct Token {\n        // The unique asset being tokenized.\n        string uniqueText;\n\n        // Identifies who created the token first.\n        address firstOwner;\n\n        // The timestamp from the block when this token came into existence.\n        uint64 mintTime;\n\n        // Identifies whether token is hidden\n        bool isHidden;\n    }\n}",
+  "sourcePath": "/Users/jasonbanico/Dropbox/Workspace/CryptoTokenAdmin/contracts/TokenCommon.sol",
+  "ast": {
+    "attributes": {
+      "absolutePath": "/Users/jasonbanico/Dropbox/Workspace/CryptoTokenAdmin/contracts/TokenCommon.sol",
+      "exportedSymbols": {
+        "TokenCommon": [
+          2237
+        ]
+      }
+    },
+    "children": [
+      {
+        "attributes": {
+          "literals": [
+            "solidity",
+            "^",
+            "0.4",
+            ".17"
+          ]
+        },
+        "id": 2227,
+        "name": "PragmaDirective",
+        "src": "0:24:12"
+      },
+      {
+        "attributes": {
+          "baseContracts": [
+            null
+          ],
+          "contractDependencies": [
+            null
+          ],
+          "contractKind": "library",
+          "documentation": null,
+          "fullyImplemented": true,
+          "linearizedBaseContracts": [
+            2237
+          ],
+          "name": "TokenCommon",
+          "scope": 2238
+        },
+        "children": [
+          {
+            "attributes": {
+              "canonicalName": "TokenCommon.Token",
+              "name": "Token",
+              "scope": 2237,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "constant": false,
+                  "name": "uniqueText",
+                  "scope": 2236,
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "type": "string storage pointer",
+                  "value": null,
+                  "visibility": "internal"
+                },
+                "children": [
+                  {
+                    "attributes": {
+                      "name": "string",
+                      "type": "string storage pointer"
+                    },
+                    "id": 2228,
+                    "name": "ElementaryTypeName",
+                    "src": "534:6:12"
+                  }
+                ],
+                "id": 2229,
+                "name": "VariableDeclaration",
+                "src": "534:17:12"
+              },
+              {
+                "attributes": {
+                  "constant": false,
+                  "name": "firstOwner",
+                  "scope": 2236,
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "type": "address",
+                  "value": null,
+                  "visibility": "internal"
+                },
+                "children": [
+                  {
+                    "attributes": {
+                      "name": "address",
+                      "type": "address"
+                    },
+                    "id": 2230,
+                    "name": "ElementaryTypeName",
+                    "src": "613:7:12"
+                  }
+                ],
+                "id": 2231,
+                "name": "VariableDeclaration",
+                "src": "613:18:12"
+              },
+              {
+                "attributes": {
+                  "constant": false,
+                  "name": "mintTime",
+                  "scope": 2236,
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "type": "uint64",
+                  "value": null,
+                  "visibility": "internal"
+                },
+                "children": [
+                  {
+                    "attributes": {
+                      "name": "uint64",
+                      "type": "uint64"
+                    },
+                    "id": 2232,
+                    "name": "ElementaryTypeName",
+                    "src": "719:6:12"
+                  }
+                ],
+                "id": 2233,
+                "name": "VariableDeclaration",
+                "src": "719:15:12"
+              },
+              {
+                "attributes": {
+                  "constant": false,
+                  "name": "isHidden",
+                  "scope": 2236,
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "type": "bool",
+                  "value": null,
+                  "visibility": "internal"
+                },
+                "children": [
+                  {
+                    "attributes": {
+                      "name": "bool",
+                      "type": "bool"
+                    },
+                    "id": 2234,
+                    "name": "ElementaryTypeName",
+                    "src": "791:4:12"
+                  }
+                ],
+                "id": 2235,
+                "name": "VariableDeclaration",
+                "src": "791:13:12"
+              }
+            ],
+            "id": 2236,
+            "name": "StructDefinition",
+            "src": "466:345:12"
+          }
+        ],
+        "id": 2237,
+        "name": "ContractDefinition",
+        "src": "26:787:12"
+      }
+    ],
+    "id": 2238,
+    "name": "SourceUnit",
+    "src": "0:813:12"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.4.19+commit.c4cbbb05.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "1.0.1",
+  "updatedAt": "2018-03-29T07:59:13.447Z"
+}

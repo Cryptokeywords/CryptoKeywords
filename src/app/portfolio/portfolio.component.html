@@ -1,0 +1,169 @@
+<div class="container">
+  <div class="jumbotron">
+    <span *ngIf="nickname">
+        <h1>{{nickname}}</h1>
+    </span>
+    <span *ngIf="!nickname">
+        <h1>Loading Portfolio. Please wait...</h1>
+    </span>
+    <p>
+      {{profile}}
+    </p>
+    
+    <p>
+      <a href="{{link}}">{{link}}</a>
+    </p>
+  </div>
+
+  <div class="field is-grouped">
+    <p class="control">
+
+      <button
+        (click)="portfolioService.changeOrder()"
+        class="btn btn-outline-primary">
+        Sorted by: {{portfolioService.sortText}}
+      </button>
+    </p>
+  </div>
+
+  <p>{{portfolioService.loading}}</p>
+
+  <div class="d-flex flex-wrap">
+    <div class="card text-center m-1" 
+    style="width: 20rem;" 
+    *ngFor="let keyword of portfolioService.keywords; index as i">
+      <div class="card-body" [ngStyle]="{'background-color': keyword.colorHash}">
+        <span class="badge badge-warning">{{keyword.tokenId}}</span>
+          <h2 class="card-title">
+              <a href="#" *ngIf="keyword.metadataAvailable"
+              (click)="setContentModal(i)"
+              data-toggle="modal" data-target="#contentModal">
+              {{keyword.uniqueText}}
+              </a>
+          </h2>
+        <div *ngIf="!keyword.metadataAvailable">
+          <h2 class="card-title">
+            {{keyword.uniqueText}}
+          </h2>
+        </div>        
+        <button 
+          class="btn btn-small btn-primary" (click)="setModalId(i)"
+          data-toggle="modal" data-target="#buyModal">
+          <i class="fa fa-tag"></i> For Sale: {{keyword.roundedPrice}} ETH
+      </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<br />
+
+<div class="modal fade" id="buyModal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h4 class="modal-title">Purchase '{{uniqueText}}'</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <div class="modal-body text-left">
+        <p>The current buying price for the keyword <strong>'{{uniqueText}}'</strong> 
+          is {{roundedPrice}} ETH.</p>
+        <p>This keyword may be acquired
+        from you for the price of {{nextPrice}} ETH. When this happens, you will
+        be paid {{netReceive}} ETH.</p>
+        <p>Note: For keywords that are in high demand, the price may change if
+          someone else bought it first while your payment is being processed. You can enter a bid
+          amount that is higher than the current price. The difference between your bid amount and
+          the latest price will be refunded. If your bid amount is less than the latest price,
+          your transaction will not be successful, and the amount will not be deducted from
+          your account.
+        </p>
+        <p>Bid Amount: 
+          <input
+          [(ngModel)]="payAmount"
+          name="payAmount"
+          class="input"
+          type="text"
+          name="ccoAddress"
+          required
+          #payAmountModel="ngModel"
+        >        
+        </p>
+        <div class="pay-button" 
+        (click)="portfolioService.buy(tokenId, payAmount)"
+        data-dismiss="modal"></div>
+    </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="contentModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <span *ngIf="flagged">
+        <div class="modal-body">
+            <div class="card">
+              <div class="card-body">
+                <p>
+                  Sorry, this content has been flagged as violating our <a href="/terms#content">content guidelines</a>.
+                </p>
+              </div>
+            </div>
+        </div>
+      </span>
+      
+      <span *ngIf="!flagged">
+        <div *ngIf="!type">
+          <div class="modal-body">
+            <div class="card">
+              <div class="card-body">
+                <h4>Loading content. Please wait...</h4>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <div *ngIf="type == 'url'">
+          <div class="modal-body" style="width:500px;">
+            <div class="card">
+              <div class="card-header">
+                  <h4><a href="{{url}}" target="_blank">{{title}}</a></h4>
+              </div>
+              <div class="card-body">
+                <p><a href="{{url}}" target="_blank">{{url}}</a><br />
+                <p>{{description}}</p>
+                <a href="{{url}}" target="_blank"><button>Visit Website</button></a>
+              </div>
+            </div>    
+          </div>
+        </div>
+          
+        <div *ngIf="type == 'youtube'">
+          <div class="modal-body">
+            <iframe id="ytplayer" type="text/html" width="560" height="315"
+            [src]="youTubeUrl"
+            frameborder="0"></iframe>
+          </div>
+        </div>
+  
+        <div class="modal-footer text-left">
+            <small>
+                If this content violates our <a href="/terms#content" target="_blank">content guidelines</a>, please let us know.
+                Note: This reporting facility requires an account as it makes a transaction. You may use our social links at
+                the end of the page if you wish to report this link through other means.
+            </small>
+            <button type="button" 
+            (click)="portfolioService.flagContent(metadata)" 
+            class="btn btn-sm btn-outline-danger">
+            Report
+          </button>
+        </div>
+      </span>
+    </div>
+  </div>
+</div>
+  

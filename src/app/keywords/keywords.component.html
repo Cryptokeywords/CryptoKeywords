@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="jumbotron">
+    <h1>
+      My Keywords
+    </h1>
+    
+    <p>
+        If you recently purchased a keyword, and it doesn't appear
+        here, please allow some more time for mining, and refresh the page.
+    </p>
+  </div>
+
+  <p>
+    <a href="https://etherscan.io/address/{{contractService.account}}" target="_blank">View My Latest Transactions</a>
+  </p>
+
+  <p>{{keywordsService.loading}}</p>
+
+  <div class="d-flex flex-wrap">
+    <div class="card text-center m-1" 
+    style="width: 20rem;" 
+    *ngFor="let keyword of keywordsService.keywords">
+      <div class="card-body" [ngStyle]="{'background-color': keyword.colorHash}">
+        <span class="badge badge-warning">{{keyword.tokenId}}</span>
+        <h2 class="card-title">{{keyword.uniqueText}}</h2>
+        <p><a href="/keyword?id={{keyword.tokenId}}">[set content for this keyword]</a></p>
+        <button class="btn btn-small btn-primary">
+          <i class="fa fa-tag"></i> Current Price: {{keyword.roundedPrice}} ETH
+        </button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<br />
